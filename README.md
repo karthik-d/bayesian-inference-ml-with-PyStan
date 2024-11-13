@@ -86,7 +86,7 @@ The inferred skill probabilities are compared against the ground truth data on s
    
 <img src="./assets/result-baseline.png" alt="result-baseline" width="500" />
 
-### Solution Step C: Diagnosing Issues: Ancestral Sampling to Generate Idealistic Sythetic Dataset
+### Solution Step C: Ancestral Sampling to Generate Idealistic Sythetic Dataset
 
 [Link to baseline applied on **ancestrally sampled data**](./06_ancestral-sampling).
 - Ancestral sampling uses the model assumptions of underlying probability distributions of the factors to sample a synthetic dataset.
