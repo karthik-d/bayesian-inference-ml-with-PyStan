@@ -45,7 +45,7 @@ The solution is implemented incrementally. A probabilstic model is formulated th
 
 #### Three-question model
 
-[Link to three-question model implementation](./03_three-question-model).
+[Link to the three-question model implementation](./03_three-question-model).
 - Modeled for **2 skills** assessed through **3 questions**.
 - These are **skills 1 and 7**; and **questions 1 through 3** on the skill-question heatmap. 
 - Factors and evaluates skill probabilities for all possible response combinations.
@@ -56,7 +56,7 @@ The following **factor graph** represents the model and message flow for the thr
 
 #### Four-question model
 
-[Link to four-question model implementation](./04_four-question-model).
+[Link to the four-question model implementation](./04_four-question-model).
 - Modeled for **2 skills** assessed through **4 questions**.
 - These are **skills 1 and 7**; and **questions 1 through 3** on the skill-question heatmap. 
 - Factors and evaluates skill probabilities for all possible response combinations.
@@ -67,9 +67,9 @@ The following **factor graph** represents the model and message flow for the fou
 
 ### Solution Step B: Baseline Vectorized Model
 
-[Link to baseline implementation on complete dataset](./05_vectorized-model).
+[Link to the baseline implementation on the entire dataset](./05_vectorized-model).
 - This is the first realisitic models that uses the complete dataset for inference.
-- It still carries the [original modeling assumptions](https://github.com/karthik-d/bayesian-inference-ml-with-PyStan/edit/main/README.md#central-modeling-assumptions).
+- It still carries the [original modeling assumptions](https://github.com/karthik-d/bayesian-inference-ml-with-PyStan/README.md#central-modeling-assumptions).
 - The implementation uses matrix operations for message passing and inference to manage larger datasets effectively and to optimize for a GPU.
 
 The following three-feature heatmap represents the correct and incorrect reponses of the 22 candidates to the 48 questions. 
@@ -82,14 +82,14 @@ The following three-feature heatmap represents the correct and incorrect reponse
       
 
 
-The inferred skill probabilities are compared against the ground truth data on skills possessed by each of the 22 candidates in the grayscale heatmap below.   
+In the grayscale heatmap below, the inferred skill probabilities are compared against the ground truth data on skills possessed by each of the 22 candidates.   
    
 <img src="./assets/result-baseline.png" alt="result-baseline" width="500" />
 
 ### Solution Step C: Ancestral Sampling to Generate Idealistic Sythetic Dataset
 
-[Link to baseline applied on **ancestrally sampled data**](./06_ancestral-sampling).
-- Ancestral sampling uses the model assumptions of underlying probability distributions of the factors to sample a synthetic dataset.
+[Link to the baseline model applied on **ancestrally sampled data**](./06_ancestral-sampling).
+- Ancestral sampling uses the model assumptions of the underlying probability distributions of the factors to sample a synthetic dataset.
 - In essence, the synthetic dataset closely represents the model assumptions.
 - Hence, the results may be used to evaluate the model assumptions and inference method.
 
@@ -98,33 +98,33 @@ The inferred skill probabilities based on sampled response data are compared aga
 <img src="./assets/result-ancestral.png" alt="result-ancestral" width="500" />
 
 Comparing results from the models in steps B and C, we see that:
-- The obtained results match the ground truth quite well, and much better than the baseline model.
-- Since an idealistic dataset representing the model assumptions correctly gives rise to good inference, the inference methods and steps are valid and correct.
+- The obtained results match the ground truth quite well, and the inferred estimates are much better than those from the baseline model.
+- Since an idealistic dataset representing the model assumptions gives rise to good inference, the inference methods and steps are valid and correct.
 
-So the problem, in turn, lies with the modeling assumptions or the parameters therein; they do not represent the real dataset well. The next steps will involve sampling on select portions of the factor graph while freezing the rest to identify which parameters/assumptions give rise to inaccuracies, and modifying them. This is called **ancestral sampling**.
+The problem, in turn, lies with the modeling assumptions or the parameters therein; they do not represent the real dataset well. The next steps will involve sampling select portions of the factor graph while freezing the rest to identify which parameters/assumptions give rise to inaccuracies, and modifying them accordingly. This is called **ancestral sampling**.
 
 ### Solution Step D: Improved Vectorized Model - Learning Guess Probabilities
 
-[Link to improved implementation on complete dataset](./07_inferring-guess-probabilities).
-- Selective ancestral sampling for analysis (*code not included*) suggests that guess probability values are not very realistic; Candidates are able to guess correct answers more often than once in ten attempts.
+[Link to the improved implementation using the entire dataset](./07_inferring-guess-probabilities).
+- Selective ancestral sampling for analysis (*code not included*) suggests that guess probability values are not very realistic; candidates are able to guess correct answers more often than once in ten attempts.
 - To improve the probabilistic model, the guess probabilities are no longer assumed to be constant.
 - Instead, the guess probability for each question is inferred through **message passing** and **belief propagation**  in the undirected factor graph.
-- Specificially, assumption D is modified as follows: <i><q>If a candidate doesn’t have all the skills needed for a question, they will pick an answer at random. **The probability of getting a question right, called the guess probability, is inferred from data**.</q></i> 
+- Specificially, assumption D is modified as follows: <i><q>If a candidate doesn’t have all the skills needed for a question, they will pick an answer at random. **The probability of getting a question right, called the guess probability, is learned from data**.</q></i> 
 
-The inferred skill probabilities, when applying learnt guess probabilities, are compared against baseline performance and the ground truth data on skills possessed by each of the 22 candidates in the grayscale heatmap below.   
+In the grayscale heatmap below, the inferred skill probabilities, when applying learnt guess probabilities, are compared against baseline performance and the ground truth data on skills possessed by each of the 22 candidates.  
    
 <img src="./assets/result-improved.png" alt="result-improved" width="700" />
 
 A substantial improvement in the inference is evident after learning the guess probabilities. Further improvements can be made, for instance, by learning the “know probabilities" and by targetedly diagnosing other assumptions of the model.
 
 > [!NOTE]
-> In solution step D, the ground truth is not used for inference. Rather, all possible combinations of _skill sets_ are generated and _belief-propagated_ to infer the posterior for guess probabilities.
+> In solution step D, the ground truth is not used for inference. Rather, all possible combinations of _skill sets_ are generated and _belief-propagated_ to infer the posterior guess probabilities.
 
 
 ## References
 
-- [Model-Based Machine Learning *by John Winn*](https://www.mbmlbook.com/).
-- [Lecture Material - 10-708: Probabilistic Graphical Models course, School of CS, Carnegie Mellon University *by Dr. Eric P. Xing*](https://www.cs.cmu.edu/~epxing/Class/10708-20/lectures.html).
-- [Equivalent C# Infer.NET Implementation](https://github.com/dotnet/mbmlbook/tree/main).
-- [PySTAN Documentation](https://pystan.readthedocs.io/en/latest/).
-- [STAN Documentation](https://mc-stan.org/users/documentation/).
+- [Model-Based Machine Learning *by John Winn*](https://www.mbmlbook.com/)
+- [Lecture Material - 10-708: Probabilistic Graphical Models course, School of CS, Carnegie Mellon University *by Dr. Eric P. Xing*](https://www.cs.cmu.edu/~epxing/Class/10708-20/lectures.html)
+- [Equivalent C# Infer.NET Implementation](https://github.com/dotnet/mbmlbook/tree/main)
+- [PyStan Documentation](https://pystan.readthedocs.io/en/latest/)
+- [Stan Documentation](https://mc-stan.org/users/documentation/)
