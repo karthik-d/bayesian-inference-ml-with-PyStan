@@ -124,7 +124,8 @@ A substantial improvement in the inference is evident after learning the guess p
 ## References
 
 - [Model-Based Machine Learning *by John Winn*](https://www.mbmlbook.com/)
-- [Lecture Material - 10-708: Probabilistic Graphical Models course, School of CS, Carnegie Mellon University *by Dr. Eric P. Xing*](https://www.cs.cmu.edu/~epxing/Class/10708-20/lectures.html)
+- [Probabilistic Graphical Models: Principles and Techniques *by Daphne Koller and Nir Friedman*](http://mcb111.org/w06/KollerFriedman.pdf)
+- [Lecture Material, 10-708: Probabilistic Graphical Models course, Carnegie Mellon University *by Dr. Eric P. Xing*](https://www.cs.cmu.edu/~epxing/Class/10708-20/lectures.html)
 - [Equivalent C# Infer.NET Implementation](https://github.com/dotnet/mbmlbook/tree/main)
 - [PyStan Documentation](https://pystan.readthedocs.io/en/latest/)
 - [Stan Documentation](https://mc-stan.org/users/documentation/)
